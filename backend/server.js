@@ -2,10 +2,17 @@ import express from 'express'
 import dotenv from 'dotenv'
 import authRoutes from './routers/auth.router.js'
 import connectMongodb from './connectDb/connectMongodb.js'
+import cookieParser from 'cookie-parser'
 const app = express()
 dotenv.config()
 
 const PORT = process.env.PORT || 8001
+app.use(express.json())
+app.use(express.urlencoded({
+    extended:true
+}))
+app.use(cookieParser())
+
 
 app.use('/api/auth',authRoutes)
 
