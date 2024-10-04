@@ -51,6 +51,14 @@ const userSchema = new mongoose.Schema({
         type:String,
         default:""
     },
+    likePost:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"Post",
+            default:[]
+        }
+    ],
+    
 },{timeseries:true})
 
 const User = mongoose.model("User",userSchema)
