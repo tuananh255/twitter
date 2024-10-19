@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import Posts from "../../components/common/Posts";
 import ProfileHeaderSkeleton from "../../components/skeletons/ProfileHeaderSkeleton";
@@ -11,6 +11,7 @@ import { FaArrowLeft } from "react-icons/fa6";
 import { IoCalendarOutline } from "react-icons/io5";
 import { FaLink } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
+import { useQuery } from "@tanstack/react-query";
 
 const ProfilePage = () => {
 	const [coverImg, setCoverImg] = useState(null);
@@ -20,20 +21,44 @@ const ProfilePage = () => {
 	const coverImgRef = useRef(null);
 	const profileImgRef = useRef(null);
 
-	const isLoading = false;
 	const isMyProfile = true;
 
-	const user = {
-		_id: "1",
-		fullName: "John Doe",
-		username: "johndoe",
-		profileImg: "/avatars/boy2.png",
-		coverImg: "/cover.png",
-		bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-		link: "https://youtube.com/@asaprogrammer_",
-		following: ["1", "2", "3"],
-		followers: ["1", "2", "3"],
-	};
+	// const user = {
+	// 	_id: "1",
+	// 	fullName: "John Doe",
+	// 	username: "johndoe",
+	// 	profileImg: "/avatars/boy2.png",
+	// 	coverImg: "/cover.png",
+	// 	bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+	// 	link: "https://youtube.com/@asaprogrammer_",
+	// 	following: ["1", "2", "3"],
+	// 	followers: ["1", "2", "3"],
+	// };
+	const { userName } = useParams();
+	console.log(userName)
+	const { data: authUser } = useQuery({ queryKey: ["authUser"] });
+	// console.log("profile",authUser)
+	const {
+		data: user,
+		isLoading,
+		refetch,
+		isRefetching,
+	} = useQuery({
+		queryKey: ["userProfile"],
+		queryFn: async () => {
+			try {
+				const res = await fetch(`/api/user/profile/${userName}`);
+				const data = await res.json();
+				if (!res.ok) {
+					throw new Error(data.error || "Something went wrong");
+				}
+				return data;
+			} catch (error) {
+				throw new Error(error);
+			}
+		},
+	});
+	console.log("profile",user)
 
 	const handleImgChange = (e, state) => {
 		const file = e.target.files[0];
