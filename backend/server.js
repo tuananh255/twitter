@@ -15,10 +15,11 @@ cloudinary.config({
     api_secret :process.env.CLOUDINARY_API_SECRET,
 })
 const PORT = process.env.PORT || 8001
-app.use(express.json())
+app.use(express.json({limit:"100kb"}))
 app.use(express.urlencoded({
     extended:true
 }))
+
 app.use(cookieParser())
 
 
