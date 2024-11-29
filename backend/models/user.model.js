@@ -62,6 +62,10 @@ const userSchema = new mongoose.Schema({
         type:String,
         default:"user",
         enum:["user","admin"]
+    },
+    oneline:{
+        type:Boolean,
+        default:false,
     }
     
 },{timeseries:true,timestamps:true})

@@ -3,7 +3,9 @@ import dotenv from 'dotenv'
 import authRoutes from './routers/auth.router.js'
 import userRoutes from './routers/user.router.js'
 import postRoutes from './routers/post.router.js'
+import conversationRoutes from './routers/conversation.route.js'
 import notificationRoutes from './routers/notification.router.js'
+import messagesRoutes from './routers/messages.route.js'
 import connectMongodb from './connectDb/connectMongodb.js'
 import cookieParser from 'cookie-parser'
 import { v2 as cloudinary} from 'cloudinary'
@@ -16,7 +18,7 @@ cloudinary.config({
     api_secret :process.env.CLOUDINARY_API_SECRET,
 })
 const PORT = process.env.PORT || 8001
-app.use(express.json({limit:"100kb"}))
+app.use(express.json({limit:"1000kb"}))
 app.use(express.urlencoded({
     extended:true
 }))
@@ -27,11 +29,11 @@ app.use(cors({
 }));
 
 app.use(cookieParser())
-
-
 app.use('/api/auth',authRoutes)
 app.use('/api/user',userRoutes)
 app.use('/api/post',postRoutes)
+app.use('/api/conversation',conversationRoutes)
+app.use('/api/message',messagesRoutes)
 app.use('/api/notification',notificationRoutes)
 
 app.listen(PORT,()=>{

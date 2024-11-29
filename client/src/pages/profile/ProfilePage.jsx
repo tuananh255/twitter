@@ -77,7 +77,7 @@ const ProfilePage = () => {
 			<div className='flex-[4_4_0]  border-r border-gray-700 min-h-screen '>
 				{/* HEADER */}
 				{(isLoading || isRefetching) && <ProfileHeaderSkeleton />}
-				{!isLoading && !isRefetching && !user && <p className='text-center text-lg mt-4'>User not found</p>}
+				{!isLoading && !isRefetching && !user && <p className='text-center text-lg mt-4'>Không tìm thấy !</p>}
 				<div className='flex flex-col'>
 					{!isLoading && !isRefetching && user && (
 						<>
@@ -87,7 +87,7 @@ const ProfilePage = () => {
 								</Link>
 								<div className='flex flex-col'>
 									<p className='font-bold text-lg'>{user?.fullName}</p>
-									<span className='text-sm text-slate-500'>{POSTS?.length} posts</span>
+									<span className='text-sm text-slate-500'>{POSTS?.length} bài đăng</span>
 								</div>
 							</div>
 							<div className='relative group/cover'>
@@ -141,8 +141,8 @@ const ProfilePage = () => {
 										onClick={() => follow(user?._id)}
 									>
 										{isPending && "Loading..."}
-										{!isPending && amIFollowing && "Unfollow"}
-										{!isPending && !amIFollowing && "Follow"}
+										{!isPending && amIFollowing && "Huỷ theo dõi"}
+										{!isPending && !amIFollowing && "Theo dõi"}
 									</button>
 								)}
 								{(coverImage || profileImage) && (
@@ -190,29 +190,29 @@ const ProfilePage = () => {
 								<div className='flex gap-2'>
 									<div className='flex gap-1 items-center'>
 										<span className='font-bold text-xs'>{user?.following.length}</span>
-										<span className='text-slate-500 text-xs'>Following</span>
+										<span className='text-slate-500 text-xs'>Đang theo dõi</span>
 									</div>
 									<div className='flex gap-1 items-center'>
 										<span className='font-bold text-xs'>{user?.followers.length}</span>
-										<span className='text-slate-500 text-xs'>Followers</span>
+										<span className='text-slate-500 text-xs'>Người theo dõi</span>
 									</div>
 								</div>
 							</div>
 							<div className='flex w-full border-b border-gray-700 mt-4'>
 								<div
-									className='flex justify-center flex-1 p-3 hover:bg-secondary transition duration-300 relative cursor-pointer'
+									className='flex justify-center flex-1 p-3 hover:bg-[black] hover:text-[white] transition duration-300 relative cursor-pointer'
 									onClick={() => setFeedType("posts")}
 								>
-									Posts
+									Bài đăng
 									{feedType === "posts" && (
 										<div className='absolute bottom-0 w-10 h-1 rounded-full bg-primary' />
 									)}
 								</div>
 								<div
-									className='flex justify-center flex-1 p-3 text-slate-500 hover:bg-secondary transition duration-300 relative cursor-pointer'
+									className='flex justify-center flex-1 p-3 text-slate-500 hover:text-[white] hover:bg-[black] transition duration-300 relative cursor-pointer'
 									onClick={() => setFeedType("likes")}
 								>
-									Likes
+									Yêu thích
 									{feedType === "likes" && (
 										<div className='absolute bottom-0 w-10  h-1 rounded-full bg-primary' />
 									)}

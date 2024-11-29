@@ -31,7 +31,13 @@ const postSchema = new mongoose.Schema({
                 required:true
             }
         }
-    ]
+    ],
+    sentiment:{
+        type:String,
+    },
+    sentimentScore:{
+        type:String,
+    }
 },{timeseries:true,timestamps:true})
 
 const Post = mongoose.model("Post",postSchema)

@@ -11,11 +11,17 @@ import toast from "react-hot-toast";
 
 const Sidebar = () => {
 	const queryClient = useQueryClient();
+	const { data: authUser } = useQuery({ queryKey: ["authUser"] });
 	const { mutate: logout } = useMutation({
 		mutationFn: async () => {
 			try {
 				const res = await fetch("/api/auth/logout", {
 					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ userName: authUser?.userName })
+
 				});
 				const data = await res.json();
 
@@ -33,19 +39,18 @@ const Sidebar = () => {
 			toast.error("Logout failed");
 		},
 	});
-	const { data: authUser } = useQuery({ queryKey: ["authUser"] });
-
+	
 	return (
 		<div className='md:flex-[2_2_0] w-18 max-w-52'>
 			<div className='sticky top-0 left-0 h-screen flex flex-col border-r border-gray-700 w-20 md:w-full'>
 				<Link to='/' className='flex justify-center md:justify-start'>
-					<XSvg className='px-2 w-12 h-12 rounded-full fill-white hover:bg-stone-900' />
+					<XSvg className='px-2 w-12 h-12 rounded-full fill-white ' />
 				</Link>
 				<ul className='flex flex-col gap-3 mt-4'>
 					<li className='flex justify-center md:justify-start'>
 						<Link
 							to='/'
-							className='flex gap-3 items-center hover:bg-stone-900 transition-all rounded-full duration-300 py-2 pl-2 pr-4 max-w-fit cursor-pointer'
+							className='flex gap-3 items-center hover:bg-[#383838] transition-all rounded-full duration-300 py-2 pl-2 pr-4 max-w-fit cursor-pointer'
 						>
 							<MdHomeFilled className='w-8 h-8' />
 							<span className='text-lg hidden md:block'>Trang chủ</span>
@@ -54,7 +59,7 @@ const Sidebar = () => {
 					<li className='flex justify-center md:justify-start'>
 						<Link
 							to='/notifications'
-							className='flex gap-3 items-center hover:bg-stone-900 transition-all rounded-full duration-300 py-2 pl-2 pr-4 max-w-fit cursor-pointer'
+							className='flex gap-3 items-center hover:bg-[#383838] transition-all rounded-full duration-300 py-2 pl-2 pr-4 max-w-fit cursor-pointer'
 						>
 							<IoNotifications className='w-6 h-6' />
 							<span className='text-lg hidden md:block'>Thông báo</span>
@@ -64,7 +69,7 @@ const Sidebar = () => {
 					<li className='flex justify-center md:justify-start'>
 						<Link
 							to={`/profile/${authUser?.userName}`}
-							className='flex gap-3 items-center hover:bg-stone-900 transition-all rounded-full duration-300 py-2 pl-2 pr-4 max-w-fit cursor-pointer'
+							className='flex gap-3 items-center hover:bg-[#383838] transition-all rounded-full duration-300 py-2 pl-2 pr-4 max-w-fit cursor-pointer'
 						>
 							<FaUser className='w-6 h-6' />
 							<span className='text-lg hidden md:block'>Hồ sơ</span>
@@ -72,27 +77,27 @@ const Sidebar = () => {
 					</li>
 					<li className='flex justify-center md:justify-start'>
 						<Link
-							to={`/profile/${authUser?.userName}`}
-							className='flex gap-3 items-center hover:bg-stone-900 transition-all rounded-full duration-300 py-2 pl-2 pr-4 max-w-fit cursor-pointer'
+							to={`/messager`}
+							className='flex gap-3 items-center hover:bg-[#383838] transition-all rounded-full duration-300 py-2 pl-2 pr-4 max-w-fit cursor-pointer'
 						>
 							<FaMessage className='w-6 h-6' />
 							<span className='text-lg hidden md:block'>Tin nhắn</span>
 						</Link>
 					</li>
-					<li className='flex justify-center md:justify-start'>
+					{/* <li className='flex justify-center md:justify-start'>
 						<Link
 							to={`/profile/${authUser?.userName}`}
-							className='flex gap-3 items-center hover:bg-stone-900 transition-all rounded-full duration-300 py-2 pl-2 pr-4 max-w-fit cursor-pointer'
+							className='flex gap-3 items-center hover:bg-[#ccc] transition-all rounded-full duration-300 py-2 pl-2 pr-4 max-w-fit cursor-pointer'
 						>
 							<FaRegBookmark className='w-6 h-6' />
 							<span className='text-lg hidden md:block'>BookMarks</span>
 						</Link>
-					</li>
+					</li> */}
 				</ul>
 				{authUser && (
 					<Link
 						to={`/profile/${authUser.userName}`}
-						className='mt-auto mb-10 flex gap-2 items-start transition-all duration-300 hover:bg-[#181818] py-2 px-4 rounded-full'
+						className='mt-auto mb-10 flex gap-2 items-start transition-all duration-300 hover:bg-[#383838] py-2 px-4 rounded-full'
 					>
 						<div className='avatar hidden md:inline-flex'>
 							<div className='w-8 rounded-full'>

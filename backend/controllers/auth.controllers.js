@@ -67,6 +67,8 @@ export const login = async (req,res) =>{
                 error:"UserName hoặc Password sai !"
             })
         } 
+        user.oneline = true
+        user.save()
         generateTokenAndSetCookie(user._id,res)
         res.status(201).json({
             _id: user._id,
@@ -83,6 +85,7 @@ export const login = async (req,res) =>{
 		res.status(500).json({ error: "Internal Server Error" });
     }
 }
+
 export const loginAdmin = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -138,6 +141,10 @@ export const loginAdmin = async (req, res) => {
 };
 export const logout = async (req,res) =>{
     try {
+        const {userName} = req.body
+        const user = await User.findOne({userName})
+        user.oneline= false
+        user.save()
         res.cookie('jwt',"",{maxAge:0})
         res.status(200).json({
             message:"Đăng xuất thành công !"

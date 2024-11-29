@@ -6,3 +6,74 @@
   color: #000;
   background-color: red;
 }
+.message.own{
+  align-items: flex-end;
+}
+.message.own .messText{
+  background-color: rgb(245, 241, 241);
+  color: #000;
+}
+.chatbottom{
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.chatMessageInput
+{
+  width: 80%;
+  height: 50px;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+.chatSubmit
+{
+  width: 70px;
+  height: 40px;
+  border: none;
+  background-color: #1877f2;
+  cursor: pointer;
+  border-radius: 5px;
+  color: white;
+}
+
+.chattopMexx {
+  max-height: 70vh; /* Chiều cao tối đa */
+  overflow-y: auto; /* Kích hoạt cuộn dọc */
+  padding: 10px; /* Thêm khoảng cách nội dung */
+  scroll-behavior: smooth; /* Hiệu ứng mượt khi cuộn */
+}
+.chatOnlineFriend
+{
+  cursor: pointer;
+  font-weight: 500;
+  align-items: center;
+  display: flex;
+}
+.imgContainer
+{
+  position: relative;
+}
+.imgContainer img{
+  border: 1px solid black;
+}
+.chatOnLineBadge
+{
+  background-color: rgb(112, 238, 112);
+  border-radius: 50%;
+  height: 10px;
+  width: 10px;
+  position: absolute;
+  top: 0px;
+  right: 2px;
+}
+.noConversationText {
+  position: absolute;
+  top: 10%;
+  font-size: 50px;
+  color: rgb(224, 220, 220);
+  cursor: default;
+}
+.chatbox{
+  border: 1px solid #ccc;
+}

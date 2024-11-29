@@ -38,11 +38,11 @@ const EditProfileModal = ({ authUser }) => {
 				className='btn btn-outline rounded-full btn-sm'
 				onClick={() => document.getElementById("edit_profile_modal").showModal()}
 			>
-				Edit profile
+				Cập nhật 
 			</button>
 			<dialog id='edit_profile_modal' className='modal'>
 				<div className='modal-box border rounded-md border-gray-700 shadow-md'>
-					<h3 className='font-bold text-lg my-3'>Update Profile</h3>
+					<h3 className='font-bold text-lg my-3'>Cập nhật</h3>
 					<form
 						className='flex flex-col gap-4'
 						onSubmit={(e) => {
@@ -112,12 +112,12 @@ const EditProfileModal = ({ authUser }) => {
 							onChange={handleInputChange}
 						/>
 						<button className='btn btn-primary rounded-full btn-sm text-white'>
-							{isUpdatingProfile ? "Updating..." : "Update"}
+							{isUpdatingProfile ? "Đang cập nhật..." : "Cập nhật"}
 						</button>
 					</form>
 				</div>
 				<form method='dialog' className='modal-backdrop'>
-					<button className='outline-none'>close</button>
+					<button className='outline-none'>Đóng</button>
 				</form>
 			</dialog>
 		</>

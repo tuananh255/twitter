@@ -42,23 +42,32 @@ export const createPost = async(req,res)=>{
 		const { text } = req.body;
 		let { img } = req.body;
 		const userId = req.user._id.toString();
-
 		const user = await User.findById(userId);
 		if (!user) return res.status(404).json({ message: "Người dùng không tồn tại" });
-
 		if (!text && !img) {
 			return res.status(400).json({ error: "Bài đăng phải có văn bản hoặc hình ảnh" });
 		}
-
 		if (img) {
 			const uploadedResponse = await cloudinary.uploader.upload(img);
 			img = uploadedResponse.secure_url;
 		}
-
+		let sentimentAnalysis = null;
+        if (text) {
+            try {
+                const response = await axios.post("http://127.0.0.1:5000/predict", { text });
+                sentimentAnalysis = response.data;
+                console.log("Sentiment Analysis Result:", sentimentAnalysis);
+            } catch (error) {
+                console.error("Error calling sentiment analysis API:", error.message);
+                return res.status(500).json({ error: "Failed to analyze sentiment" });
+            }
+        }
 		const newPost = new Post({
 			user: userId,
 			text,
 			img,
+			sentiment: sentimentAnalysis?.sentiment, // Lưu kết quả cảm xúc
+            sentimentScore: sentimentAnalysis?.score,
 		});
 
 		await newPost.save();

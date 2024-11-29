@@ -9,6 +9,7 @@ import ProfilePage from "./pages/profile/ProfilePage";
 import {Toaster} from 'react-hot-toast'
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "./components/common/LoadingSpinner";
+import Messager from "./pages/messager/Messager";
 function App() {
   const {data:authUser,isLoading} =useQuery({
     queryKey:["authUser"],
@@ -43,6 +44,7 @@ function App() {
         <Route path="/" element={authUser ?<HomePage /> : <Navigate to='/login' />} />
         <Route path="/login" element={!authUser ?<Login />: <Navigate to='/' />} />
         <Route path="/signup" element={!authUser ?<Signup />: <Navigate to='/' />} />
+        <Route path="/messager" element={authUser ?<Messager/>: <Navigate to='/login' />} />
         <Route path="/notifications" element={authUser ? <NotificationPage />:<Navigate to='/login' />} />
         <Route path='/profile/:userName' element={authUser ?  <ProfilePage />:<Navigate to='/login' />}/>
       </Routes>

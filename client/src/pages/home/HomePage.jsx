@@ -13,20 +13,20 @@ const HomePage = () => {
 				<div className='flex w-full border-b border-gray-700'>
 					<div
 						className={
-							"flex justify-center flex-1 p-3 hover:bg-secondary transition duration-300 cursor-pointer relative"
+							"flex justify-center flex-1 p-3 hover:bg-[#16181C] hover:text-[white] transition duration-300 cursor-pointer relative"
 						}
 						onClick={() => setFeedType("forYou")}
 					>
-						For you
+						Dành cho bạn
 						{feedType === "forYou" && (
 							<div className='absolute bottom-0 w-10  h-1 rounded-full bg-primary'></div>
 						)}
 					</div>
 					<div
-						className='flex justify-center flex-1 p-3 hover:bg-secondary transition duration-300 cursor-pointer relative'
+						className='flex justify-center flex-1 p-3 hover:bg-[#16181C] hover:text-[white] transition duration-300 cursor-pointer relative'
 						onClick={() => setFeedType("following")}
 					>
-						Following
+						Đang theo dõi
 						{feedType === "following" && (
 							<div className='absolute bottom-0 w-10  h-1 rounded-full bg-primary'></div>
 						)}
