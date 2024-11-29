@@ -20,7 +20,7 @@ const Post = ({ post }) => {
 
 	const isMyPost = authUser._id === post.user?._id;
 
-	const formattedDate = formatPostDate(post.createdAt);
+	const formattedDate = formatPostDate(post?.createdAt);
 
 	const { mutate: deletePost, isPending: isDeleting } = useMutation({
 		mutationFn: async () => {

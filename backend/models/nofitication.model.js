@@ -23,7 +23,7 @@ const nofiticationSchema = new mongoose.Schema({
         type:Boolean,
         default:false
     }
-},{timeseries:true})
+},{timeseries:true,timestamps:true})
 
 const Nofitication = mongoose.model("Nofitication",nofiticationSchema)
 export default Nofitication

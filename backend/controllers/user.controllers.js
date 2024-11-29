@@ -20,6 +20,22 @@ export const getUserProfile= async(req,res)=>{
 		res.status(500).json({ error: "Internal Server Error" });
 	}
 }
+export const getAll= async(req,res)=>{
+	try {
+		const user = await User.find({}).select("-password")
+		if(!user){
+			return res.status(400).json({
+				message:"Người dùng không tồn tại"
+			})
+		}
+		res.status(201).json(user)
+	} catch (error) {
+		console.log("Error in get User Profile controller", error.message);
+		res.status(500).json({ error: "Internal Server Error" });
+	}
+}
+
+
 export const followUnFollowUser= async(req,res)=>{
 	try {
 		const {id} = req.params

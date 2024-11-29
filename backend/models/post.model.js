@@ -32,7 +32,7 @@ const postSchema = new mongoose.Schema({
             }
         }
     ]
-},{timeseries:true})
+},{timeseries:true,timestamps:true})
 
 const Post = mongoose.model("Post",postSchema)
 export default Post

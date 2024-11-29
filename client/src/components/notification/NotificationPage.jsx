@@ -44,7 +44,6 @@ const NotificationPage = () => {
 			toast.error(error.message);
 		},
 	});
-
 	return (
 		<>
 			<div className='flex-[4_4_0] border-l border-r border-gray-700 min-h-screen'>
@@ -75,14 +74,14 @@ const NotificationPage = () => {
 						<div className='flex gap-2 p-4'>
 							{notification.type === "follow" && <FaUser className='w-7 h-7 text-primary' />}
 							{notification.type === "like" && <FaHeart className='w-7 h-7 text-red-500' />}
-							<Link to={`/profile/${notification.from.userName}`}>
+							<Link to={`/profile/${notification?.from?.userName}`}>
 								<div className='avatar'>
 									<div className='w-8 rounded-full'>
-										<img src={notification.from.profileImg || "/avatar-placeholder.png"} />
+										<img src={notification.from.profileImage || "/avatar-placeholder.png"} />
 									</div>
 								</div>
 								<div className='flex gap-1'>
-									<span className='font-bold'>@{notification.from.username}</span>{" "}
+									<span className='font-bold'>@{notification?.from?.userName}</span>{" "}
 									{notification.type === "follow" ? "followed you" : "liked your post"}
 								</div>
 							</Link>

@@ -7,6 +7,7 @@ import notificationRoutes from './routers/notification.router.js'
 import connectMongodb from './connectDb/connectMongodb.js'
 import cookieParser from 'cookie-parser'
 import { v2 as cloudinary} from 'cloudinary'
+import cors from 'cors';
 const app = express()
 dotenv.config()
 cloudinary.config({
@@ -19,6 +20,11 @@ app.use(express.json({limit:"100kb"}))
 app.use(express.urlencoded({
     extended:true
 }))
+
+app.use(cors({
+    origin: ['http://localhost:3000','http://localhost:3001'],
+    credentials: true,
+}));
 
 app.use(cookieParser())
 

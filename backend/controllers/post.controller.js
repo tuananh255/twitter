@@ -2,26 +2,41 @@ import Post from "../models/post.model.js";
 import User from "../models/user.model.js";
 import Notification from '../models/nofitication.model.js'
 import { v2 as cloudinary} from 'cloudinary'
+import dotenv from 'dotenv'
+import OpenAI from "openai";
+import axios from 'axios'
+dotenv.config()
+const openAI = new OpenAI({
+	apiKey:process.env.OPENAI_API_KEY
+})
+export const getapi = async(req,res)=>{
+	const response = await openAI.chat.completions.create({
+		model:'gpt-3.5-turbo',
+		messages:[{"role":"user","content":"ok nè"}],
+		max_tokens:100
+	})
+	console.log(response)
+	console.log(openAI)
+}
+const checkContentAppropriateness = async (text) => {
+    try {
+        const response = await axios.post('https://api.openai.com/v1/chat/completions', {
+            model: 'gpt-3.5-turbo',
+            messages: [{ role: 'user', content: `Is the following text appropriate? "${text}"` }],
+        }, {
+            headers: {
+                'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+            },
+        });
 
-// const checkContentAppropriateness = async (text) => {
-//     try {
-//         const response = await axios.post('https://api.openai.com/v1/chat/completions', {
-//             model: 'gpt-3.5-turbo',
-//             messages: [{ role: 'user', content: `Is the following text appropriate? "${text}"` }],
-//         }, {
-//             headers: {
-//                 'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
-//             },
-//         });
-
-//         // Giả sử rằng phản hồi sẽ là một chuỗi cho biết nội dung có phù hợp hay không
-//         const result = response.data.choices[0].message.content.trim();
-//         return result.toLowerCase() === 'yes'; // Hoặc xử lý logic phù hợp khác
-//     } catch (error) {
-//         console.error("Error checking content appropriateness: ", error);
-//         return true; // Giả định là nội dung phù hợp nếu có lỗi
-//     }
-// };
+        // Giả sử rằng phản hồi sẽ là một chuỗi cho biết nội dung có phù hợp hay không
+        const result = response.data.choices[0].message.content.trim();
+        return result.toLowerCase() === 'yes'; // Hoặc xử lý logic phù hợp khác
+    } catch (error) {
+        console.error("Error checking content appropriateness: ", error);
+        return true; // Giả định là nội dung phù hợp nếu có lỗi
+    }
+};
 export const createPost = async(req,res)=>{
     try {
 		const { text } = req.body;
@@ -53,7 +68,7 @@ export const createPost = async(req,res)=>{
 		console.log("Error in createPost controller: ", error);
 	}
 }
-
+// checkContentAppropriateness()
 export const deletePost =async(req,res)=>{
     try {
 		const post = await Post.findById(req.params.id);
